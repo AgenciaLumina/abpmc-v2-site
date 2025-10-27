@@ -5,6 +5,9 @@ import { prisma } from "@/lib/prisma";
 import { createPaymentPreference } from "@/lib/mercadopago";
 import { TransacaoStatus } from "@prisma/client";
 
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 export async function POST(req: NextRequest) {
   try {
     // Verifica autenticação

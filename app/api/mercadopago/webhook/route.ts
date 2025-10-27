@@ -9,6 +9,9 @@ import {
 import { TransacaoStatus, AssociadoStatus } from "@prisma/client";
 import { sendPaymentConfirmationEmail } from "@/lib/email";
 
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 export async function POST(req: NextRequest) {
   try {
     // Obtém headers de validação
