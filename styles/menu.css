@@ -1,0 +1,14 @@
+@layer components {
+  .nav-link {
+    @apply inline-flex items-center gap-1 font-medium;
+  }
+  .nav-underline::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 0;
+    background: theme('colors.secondary.500');
+    transition: width .2s ease;
+  }
+  .nav-underline:hover::after { width: 100%; }
+}

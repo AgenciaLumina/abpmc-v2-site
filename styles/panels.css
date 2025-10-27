@@ -1,0 +1,17 @@
+@layer components {
+  .panel-soft { @apply bg-white rounded-panel shadow-panelSoft; }
+  .panel-soft-halo { position: relative; }
+  .panel-soft-halo::after {
+    content: "";
+    position: absolute;
+    inset: -18px -18px -22px -18px;
+    border-radius: 28px;
+    background:
+      radial-gradient(120% 60% at 50% 0%, rgba(11,18,32,.06), transparent 60%),
+      radial-gradient(120% 60% at 50% 100%, rgba(11,18,32,.08), transparent 60%);
+    filter: blur(6px);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+}

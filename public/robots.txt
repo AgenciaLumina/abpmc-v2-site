@@ -1,0 +1,17 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Bloquear áreas administrativas e privadas
+Disallow: /admin
+Disallow: /associado
+Disallow: /api/admin
+Disallow: /auth
+
+# Permitir acesso a recursos estáticos
+Allow: /images_estrutura/
+Allow: /uploads/
+Allow: /_next/
+
+# Sitemap
+Sitemap: https://abpmc.com.br/sitemap.xml

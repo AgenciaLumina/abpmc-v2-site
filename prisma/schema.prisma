@@ -1,0 +1,242 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Content {
+  id          Int      @id @default(autoincrement())
+  type        ContentType
+  title       String
+  slug        String   @unique
+  status      String   @default("publish")
+  html        String   @db.Text
+  excerpt     String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  publishedAt DateTime?
+  author      String?
+  meta        Json?
+
+  // Relacionamentos futuros
+  terms       ContentTerm[]
+
+  @@map("contents")
+}
+
+model MediaAsset {
+  id          Int      @id @default(autoincrement())
+  originalUrl String
+  localPath   String
+  width       Int?
+  height      Int?
+  mime        String?
+  createdAt   DateTime @default(now())
+
+  @@map("media_assets")
+}
+
+model Term {
+  id       Int      @id @default(autoincrement())
+  taxonomy Taxonomy
+  name     String
+  slug     String   @unique
+  
+  // Relacionamentos
+  contents ContentTerm[]
+
+  @@map("terms")
+}
+
+model ContentTerm {
+  contentId Int
+  termId    Int
+  
+  content   Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  term      Term    @relation(fields: [termId], references: [id], onDelete: Cascade)
+
+  @@id([contentId, termId])
+  @@map("content_terms")
+}
+
+enum ContentType {
+  POST
+  PAGE
+}
+
+enum Taxonomy {
+  category
+  post_tag
+}
+
+// ===== FASE 2: ÁREA DO ASSOCIADO =====
+
+model Associado {
+  id              Int           @id @default(autoincrement())
+  nome            String
+  email           String        @unique
+  senhaHash       String
+  cpf             String?       @unique
+  telefone        String?
+  endereco        String?
+  cidade          String?
+  estado          String?
+  cep             String?
+  planoId         Int?
+  status          AssociadoStatus @default(ATIVO)
+  vencimento      DateTime?
+  emailVerificado Boolean       @default(false)
+  role            UserRole      @default(ASSOCIADO)
+  ultimoLogin     DateTime?
+  resetToken      String?       @unique
+  resetTokenExpiry DateTime?
+  
+  // Campos para página pública de sócios
+  curriculoLattes String?       // URL do Lattes
+  visivelNoSite   Boolean       @default(true) // Se aparece na página de sócios
+  
+  // Relacionamentos
+  plano           Plano?        @relation(fields: [planoId], references: [id])
+  transacoes      Transacao[]
+  
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@map("associados")
+}
+
+model Plano {
+  id              Int           @id @default(autoincrement())
+  nome            String
+  descricao       String?
+  valor           Float
+  recorrente      Boolean       @default(true)
+  duracaoDias     Int           @default(365)
+  ativo           Boolean       @default(true)
+  
+  // Relacionamentos
+  associados      Associado[]
+  
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@map("planos")
+}
+
+model Transacao {
+  id              Int           @id @default(autoincrement())
+  associadoId     Int
+  planoId         Int?
+  valor           Float
+  status          TransacaoStatus @default(PENDENTE)
+  metodo          String        // mercadopago, transferencia, boleto
+  paymentId       String?       @unique // ID do Mercado Pago
+  preferenceId    String?       // Preference ID do Mercado Pago
+  dataPagamento   DateTime?
+  dataVencimento  DateTime?
+  descricao       String?
+  comprovante     String?       // URL do comprovante
+  
+  // Relacionamentos
+  associado       Associado     @relation(fields: [associadoId], references: [id], onDelete: Cascade)
+  
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@map("transacoes")
+}
+
+model ConteudoRestrito {
+  id              Int           @id @default(autoincrement())
+  titulo          String
+  corpo           String        @db.Text
+  categoria       String
+  tipo            TipoConteudo  @default(ARTIGO)
+  visivelApenas   VisibilidadeConteudo @default(ASSOCIADOS)
+  anexoUrl        String?
+  thumbnailUrl    String?
+  ativo           Boolean       @default(true)
+  
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@map("conteudos_restritos")
+}
+
+model ConfiguracaoSistema {
+  id              Int           @id @default(autoincrement())
+  chave           String        @unique
+  valor           String        @db.Text
+  tipo            String        // string, number, boolean, json
+  descricao       String?
+  
+  updatedAt       DateTime      @updatedAt
+
+  @@map("configuracoes")
+}
+
+model LogSistema {
+  id              Int           @id @default(autoincrement())
+  tipo            TipoLog
+  mensagem        String        @db.Text
+  usuarioId       Int?
+  ip              String?
+  userAgent       String?
+  dados           Json?
+  
+  createdAt       DateTime      @default(now())
+
+  @@map("logs")
+}
+
+// ===== ENUMS =====
+
+enum AssociadoStatus {
+  ATIVO
+  INATIVO
+  PENDENTE
+  BLOQUEADO
+  VENCIDO
+}
+
+enum UserRole {
+  ASSOCIADO
+  ADMIN
+  SUPERADMIN
+}
+
+enum TransacaoStatus {
+  PENDENTE
+  APROVADO
+  RECUSADO
+  CANCELADO
+  REEMBOLSADO
+}
+
+enum TipoConteudo {
+  ARTIGO
+  DOWNLOAD
+  VIDEO
+  NOTICIA
+}
+
+enum VisibilidadeConteudo {
+  PUBLICO
+  ASSOCIADOS
+  ADMIN
+}
+
+enum TipoLog {
+  INFO
+  AVISO
+  ERRO
+  ACESSO
+  PAGAMENTO
+  SISTEMA
+}

@@ -1,0 +1,57 @@
+/* Ponte de classes WordPress/Elementor para Design System ABPMC */
+
+@layer components {
+  /* Botões do Gutenberg/Elementor */
+  .wp-block-button__link,
+  .elementor-button,
+  .box-button {
+    @apply inline-flex items-center justify-center rounded-sm px-5 py-3 font-medium
+           bg-primary-500 text-white hover:bg-primary-700 transition-colors;
+  }
+
+  /* Imagens com legenda */
+  .wp-caption, 
+  .wp-block-image figcaption {
+    @apply text-sm text-neutral-500 mt-2 text-center;
+  }
+
+  /* Tabelas legadas */
+  table {
+    @apply w-full border-collapse my-6;
+  }
+  
+  th, td {
+    @apply border border-neutral-200 px-3 py-2;
+  }
+  
+  th {
+    @apply bg-neutral-50 text-neutral-700 font-medium;
+  }
+
+  /* Alertas e blocos especiais */
+  .notice, 
+  .wp-block-quote.is-style-large {
+    @apply rounded-sm bg-neutral-50 p-4 border border-neutral-200;
+  }
+
+  /* Elementor containers */
+  .elementor-widget-container {
+    @apply w-full;
+  }
+
+  /* WordPress galleries */
+  .wp-block-gallery,
+  .gallery {
+    @apply grid gap-4 grid-cols-2 md:grid-cols-3;
+  }
+
+  /* WordPress embed blocks */
+  .wp-block-embed {
+    @apply my-6 rounded-sm overflow-hidden;
+  }
+
+  /* Legacy content links */
+  .entry-content a:not(.btn):not(.button) {
+    @apply text-primary-500 hover:text-primary-700 underline;
+  }
+}

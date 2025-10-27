@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos básicos para preservar o HTML legado */
+.legacy-content {
+  /* Preservar estilos inline do WordPress */
+  line-height: 1.6;
+}
+
+.legacy-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.legacy-content a {
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+.legacy-content a:hover {
+  text-decoration: none;
+}
