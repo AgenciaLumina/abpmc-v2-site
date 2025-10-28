@@ -9,7 +9,7 @@ export const MENU_ITEMS = [
     { label: "Diretoria", href: "/diretoria" },
     { 
       label: "Documentos", 
-      href: "/documentos",
+      href: "#",
       subitems: [
         { label: "Convocações", href: "/documentos/convocacoes" },
         { label: "Editais", href: "/documentos/editais" },
