@@ -6,6 +6,7 @@ import Link from 'next/link'
 export default function CheckoutPage() {
   const [formData, setFormData] = useState({
     nome: '',
+    nomeSocial: '',
     email: '',
     cpf: '',
     telefone: '',
@@ -17,7 +18,11 @@ export default function CheckoutPage() {
     cidade: '',
     estado: '',
     categoria: 'estudante',
-    metodoPagamento: 'cartao'
+    metodoPagamento: 'cartao',
+    possuiNecessidadesEspeciais: 'nao',
+    necessidadesEspeciaisDescricao: '',
+    etnia: '',
+    areasInteresse: ''
   })
   const [loadingCep, setLoadingCep] = useState(false)
   const [cepError, setCepError] = useState('')
@@ -122,6 +127,20 @@ export default function CheckoutPage() {
                       placeholder="Seu nome completo"
                     />
                   </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Nome Social (opcional)
+                    </label>
+                    <input
+                      type="text"
+                      name="nomeSocial"
+                      value={formData.nomeSocial}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#01C2CE] focus:border-transparent outline-none transition"
+                      placeholder="Como prefere ser chamado(a)"
+                    />
+                  </div>
                   
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -185,6 +204,78 @@ export default function CheckoutPage() {
                       <option value="institucional">Institucional - R$ 1.200,00</option>
                     </select>
                   </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Etnia/Cor da Pele *
+                    </label>
+                    <select
+                      name="etnia"
+                      required
+                      value={formData.etnia}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#01C2CE] focus:border-transparent outline-none transition"
+                    >
+                      <option value="">Selecione</option>
+                      <option value="branca">Branca</option>
+                      <option value="preta">Preta</option>
+                      <option value="parda">Parda</option>
+                      <option value="amarela">Amarela</option>
+                      <option value="indigena">Indígena</option>
+                      <option value="nao-declarar">Prefiro não declarar</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Áreas de Interesse *
+                    </label>
+                    <select
+                      name="areasInteresse"
+                      required
+                      value={formData.areasInteresse}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#01C2CE] focus:border-transparent outline-none transition"
+                    >
+                      <option value="">Selecione</option>
+                      <option value="clinica">Clínica</option>
+                      <option value="eventos">Eventos</option>
+                      <option value="outros">Outros</option>
+                    </select>
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Possui necessidades especiais/acessibilidade? *
+                    </label>
+                    <select
+                      name="possuiNecessidadesEspeciais"
+                      required
+                      value={formData.possuiNecessidadesEspeciais}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#01C2CE] focus:border-transparent outline-none transition"
+                    >
+                      <option value="nao">Não</option>
+                      <option value="sim">Sim</option>
+                    </select>
+                  </div>
+
+                  {formData.possuiNecessidadesEspeciais === 'sim' && (
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Informe qual necessidade ou acessibilidade que você precisa *
+                      </label>
+                      <textarea
+                        name="necessidadesEspeciaisDescricao"
+                        required
+                        value={formData.necessidadesEspeciaisDescricao}
+                        onChange={(e) => setFormData(prev => ({ ...prev, necessidadesEspeciaisDescricao: e.target.value }))}
+                        rows={3}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#01C2CE] focus:border-transparent outline-none transition resize-none"
+                        placeholder="Descreva suas necessidades de acessibilidade..."
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
 
