@@ -1,11 +1,6 @@
-import HeroHome from "@/components/sections/hero-home";
-import LatestNews from "@/components/sections/latest-news";
+import { redirect } from "next/navigation";
 
 export default function Page() {
-  return (
-    <>
-      <HeroHome />
-      <LatestNews />
-    </>
-  );
+  // Redirecionar para a home dentro do grupo (site)
+  redirect("/home");
 }

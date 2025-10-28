@@ -82,10 +82,10 @@ async function createUsers() {
     console.log('  Email: paulo@agencialumina.com.br');
     console.log('  Senha: Sucesso102030#');
     console.log('  Acesso: /admin');
-    console.log('\nÁrea do Associado:');
+    console.log('\nÁrea do Sócio:');
     console.log('  Email: teste@agencialumina.com.br');
     console.log('  Senha: Sucesso102030#');
-    console.log('  Acesso: Área restrita do associado');
+    console.log('  Acesso: /socios (área restrita)');
 
   } catch (error) {
     console.error('❌ Erro ao criar usuários:', error);

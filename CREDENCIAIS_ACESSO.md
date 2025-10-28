@@ -15,8 +15,8 @@
 - **Senha:** `Sucesso102030#`
 - **Role:** `ASSOCIADO`
 - **ID:** 725
-- **Acesso:** `/associados` (área restrita)
-- **Permissões:** Acesso à área do associado
+- **Acesso:** `/socios` (área restrita)
+- **Permissões:** Acesso à área do sócio
 
 ## 🚀 COMO ACESSAR
 
@@ -25,10 +25,10 @@
 2. Use as credenciais do Super Admin
 3. Terá acesso completo ao painel administrativo
 
-### Área do Associado
-1. Acesse: `http://localhost:3002/associados`
+### Área do Sócio
+1. Acesse: `http://localhost:3002/socios`
 2. Use as credenciais do Associado de Teste
-3. Terá acesso à área restrita dos associados
+3. Terá acesso à área restrita dos sócios
 
 ## 🔧 CONFIGURAÇÕES
 

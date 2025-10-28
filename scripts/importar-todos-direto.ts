@@ -75,7 +75,7 @@ async function importarTodosSocios() {
   console.log("=".repeat(70));
   console.log(`\n⚠️  Senha padrão: ${senhaTemporaria}`);
   console.log(`\n🌐 Acesse:`);
-  console.log(`   Público: http://localhost:3000/socios`);
+  console.log(`   Público: http://localhost:3000/associados`);
   console.log(`   Admin:   http://localhost:3000/admin/socios\n`);
 }
 
