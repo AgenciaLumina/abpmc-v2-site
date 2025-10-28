@@ -7,7 +7,7 @@ export default async function LatestNews() {
   const posts = await prisma.content.findMany({
     where: { type: "POST", status: "publish" },
     orderBy: { publishedAt: "desc" },
-    take: 6,
+    take: 5,
     include: {
       terms: { select: { term: { select: { name: true, slug: true } } } },
     },
