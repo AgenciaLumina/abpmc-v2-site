@@ -212,37 +212,40 @@ export default function Header() {
                   <div className="dropdown-menu absolute left-0 top-full mt-2 bg-white border border-gray-200 shadow-xl rounded-md p-4 hidden z-[75] min-w-[260px] animate-fadeIn">
                     <ul className="space-y-2">
                       {item.items.map(i => (
-                        <li key={i.label}>
+                        <li key={i.label} className="relative group/item">
                           <Link 
                             href={i.href} 
-                            className="text-gray-700 hover:text-[#01C2CE] hover:bg-gray-50 text-[15px] block py-2 px-3 rounded-md transition-all"
+                            className="text-gray-700 hover:text-[#01C2CE] hover:bg-gray-50 text-[15px] block py-2 px-3 rounded-md transition-all flex items-center justify-between"
                           >
                             {i.label}
+                            {i.subitems && <span className="text-xs">›</span>}
                           </Link>
                           {i.subitems && (
-                            <ul className="ml-4 mt-2 space-y-1 border-l-2 border-[#01C2CE] pl-3">
-                              {i.subitems.map(sub => (
-                                <li key={sub.label}>
-                                  {sub.external ? (
-                                    <a
-                                      href={sub.href}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="text-gray-600 hover:text-[#01C2CE] text-sm block py-1.5 px-2 rounded transition-all"
-                                    >
-                                      {sub.label}
-                                    </a>
-                                  ) : (
-                                    <Link
-                                      href={sub.href}
-                                      className="text-gray-600 hover:text-[#01C2CE] text-sm block py-1.5 px-2 rounded transition-all"
-                                    >
-                                      {sub.label}
-                                    </Link>
-                                  )}
-                                </li>
-                              ))}
-                            </ul>
+                            <div className="absolute left-full top-0 ml-1 bg-white border border-gray-200 shadow-xl rounded-md p-4 hidden group-hover/item:block min-w-[280px] z-[80]">
+                              <ul className="space-y-1">
+                                {i.subitems.map(sub => (
+                                  <li key={sub.label}>
+                                    {sub.external ? (
+                                      <a
+                                        href={sub.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-gray-600 hover:text-[#01C2CE] hover:bg-gray-50 text-sm block py-2 px-3 rounded transition-all"
+                                      >
+                                        {sub.label}
+                                      </a>
+                                    ) : (
+                                      <Link
+                                        href={sub.href}
+                                        className="text-gray-600 hover:text-[#01C2CE] hover:bg-gray-50 text-sm block py-2 px-3 rounded transition-all"
+                                      >
+                                        {sub.label}
+                                      </Link>
+                                    )}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
                           )}
                         </li>
                       ))}
