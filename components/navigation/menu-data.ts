@@ -5,7 +5,7 @@ export type DropdownItem = { label: string; href: string; subitems?: { label: st
 
 export const MENU_ITEMS = [
   { type: "dropdown" as const, label: "INSTITUCIONAL", items: [
-    { label: "Quem somos", href: "/pagina/quem-somos" },
+    { label: "Quem somos", href: "/quem-somos" },
     { label: "Diretoria", href: "/diretoria" },
     { 
       label: "Documentos", 
