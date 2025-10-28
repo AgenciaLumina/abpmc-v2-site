@@ -12,21 +12,22 @@ datasource db {
 }
 
 model Content {
-  id          Int      @id @default(autoincrement())
-  type        ContentType
-  title       String
-  slug        String   @unique
-  status      String   @default("publish")
-  html        String   @db.Text
-  excerpt     String?  @db.Text
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  publishedAt DateTime?
-  author      String?
-  meta        Json?
+  id             Int      @id @default(autoincrement())
+  type           ContentType
+  title          String
+  slug           String   @unique
+  status         String   @default("publish")
+  html           String   @db.Text
+  excerpt        String?  @db.Text
+  featuredImage  String?  // URL da imagem destacada
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  publishedAt    DateTime?
+  author         String?
+  meta           Json?
 
   // Relacionamentos futuros
-  terms       ContentTerm[]
+  terms          ContentTerm[]
 
   @@map("contents")
 }

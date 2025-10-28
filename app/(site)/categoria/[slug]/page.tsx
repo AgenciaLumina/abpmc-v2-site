@@ -3,14 +3,20 @@ import HeaderInterno from "@/components/layout/HeaderInterno";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
+import PostsPagination from "@/components/pagination/PostsPagination";
 
 interface CategoriaPageProps {
   params: {
     slug: string;
   };
+  searchParams: {
+    page?: string;
+  };
 }
 
-export default async function CategoriaPage({ params }: CategoriaPageProps) {
+export default async function CategoriaPage({ params, searchParams }: CategoriaPageProps) {
+  const currentPage = Number(searchParams.page) || 1;
+  const postsPerPage = 10;
   // Buscar categoria
   const categoria = await prisma.term.findUnique({
     where: {
@@ -23,7 +29,22 @@ export default async function CategoriaPage({ params }: CategoriaPageProps) {
     notFound();
   }
 
-  // Buscar posts desta categoria
+  // Contar total de posts
+  const totalPosts = await prisma.content.count({
+    where: {
+      type: "POST",
+      status: "publish",
+      terms: {
+        some: {
+          termId: categoria.id,
+        },
+      },
+    },
+  });
+
+  const totalPages = Math.ceil(totalPosts / postsPerPage);
+
+  // Buscar posts desta categoria com paginação
   const posts = await prisma.content.findMany({
     where: {
       type: "POST",
@@ -44,6 +65,8 @@ export default async function CategoriaPage({ params }: CategoriaPageProps) {
     orderBy: {
       publishedAt: "desc",
     },
+    skip: (currentPage - 1) * postsPerPage,
+    take: postsPerPage,
   });
 
   const formatDate = (date: Date | null) => {
@@ -60,26 +83,6 @@ export default async function CategoriaPage({ params }: CategoriaPageProps) {
       <HeaderInterno titulo={categoria.name} />
       
       <main className="bg-white">
-        {/* Introdução */}
-        <section className="py-20 px-6 md:px-16">
-          <div className="max-w-5xl mx-auto text-center">
-            <p className="text-lg leading-relaxed">
-              Conteúdos da categoria <strong>{categoria.name}</strong>
-            </p>
-          </div>
-        </section>
-
-        {/* Bloco Gradiente */}
-        <section className="w-full bg-gradient-to-b from-[#0B2E47] to-[#163B56] py-[60px] text-center text-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <h2 className="text-2xl font-semibold mb-2">
-              {posts.length} {posts.length === 1 ? "Publicação" : "Publicações"}
-            </h2>
-            <p className="max-w-3xl mx-auto text-base text-[#E8EEF3]">
-              Explore os conteúdos desta categoria
-            </p>
-          </div>
-        </section>
 
         {/* Listagem de Posts */}
         <section className="py-20 px-6 md:px-16">
@@ -136,15 +139,12 @@ export default async function CategoriaPage({ params }: CategoriaPageProps) {
                 })}
               </div>
 
-              {/* Link para voltar */}
-              <div className="text-center mt-16">
-                <Link
-                  href="/noticias"
-                  className="text-[#2b4e6d] hover:underline"
-                >
-                  ← Ver todas as notícias
-                </Link>
-              </div>
+              {/* Paginação */}
+              <PostsPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                baseUrl={`/categoria/${params.slug}`}
+              />
             </>
           )}
         </section>
