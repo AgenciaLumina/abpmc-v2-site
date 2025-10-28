@@ -19,9 +19,59 @@ export default function CheckoutPage() {
     categoria: 'estudante',
     metodoPagamento: 'cartao'
   })
+  const [loadingCep, setLoadingCep] = useState(false)
+  const [cepError, setCepError] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const buscarCep = async (cep: string) => {
+    const cepLimpo = cep.replace(/\D/g, '')
+    
+    if (cepLimpo.length !== 8) {
+      setCepError('CEP deve ter 8 dígitos')
+      return
+    }
+
+    setLoadingCep(true)
+    setCepError('')
+
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`)
+      const data = await response.json()
+
+      if (data.erro) {
+        setCepError('CEP não encontrado')
+        setLoadingCep(false)
+        return
+      }
+
+      setFormData(prev => ({
+        ...prev,
+        endereco: data.logradouro || '',
+        bairro: data.bairro || '',
+        cidade: data.localidade || '',
+        estado: data.uf || '',
+        complemento: data.complemento || prev.complemento
+      }))
+
+      setCepError('')
+    } catch (error) {
+      setCepError('Erro ao buscar CEP')
+    } finally {
+      setLoadingCep(false)
+    }
+  }
+
+  const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const valor = e.target.value
+    setFormData(prev => ({ ...prev, cep: valor }))
+
+    const cepLimpo = valor.replace(/\D/g, '')
+    if (cepLimpo.length === 8) {
+      buscarCep(cepLimpo)
+    }
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -144,19 +194,26 @@ export default function CheckoutPage() {
                   Endereço
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
+                  <div className="md:col-span-2">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      CEP *
+                      CEP * {loadingCep && <span className="text-[#01C2CE] text-xs ml-2">🔄 Buscando...</span>}
                     </label>
                     <input
                       type="text"
                       name="cep"
                       required
                       value={formData.cep}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#01C2CE] focus:border-transparent outline-none transition"
+                      onChange={handleCepChange}
+                      maxLength={9}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#01C2CE] focus:border-transparent outline-none transition ${
+                        cepError ? 'border-red-500' : 'border-gray-300'
+                      }`}
                       placeholder="00000-000"
                     />
+                    {cepError && <p className="text-red-500 text-xs mt-1">{cepError}</p>}
+                    {!cepError && !loadingCep && formData.cep.replace(/\D/g, '').length === 8 && (
+                      <p className="text-green-600 text-xs mt-1">✓ Endereço preenchido automaticamente</p>
+                    )}
                   </div>
 
                   <div className="md:col-span-2">
