@@ -1,48 +1,48 @@
-export type ColLink = { label: string; href: string };
+export type ColLink = { label: string; href: string; external?: boolean };
 export type Column = { title: string; links: ColLink[] };
 export type MegaGrid = { top: Column[]; bottom: Column[] };
-export type DropdownItem = { label: string; href: string; subitems?: { label: string; href: string }[] };
+export type DropdownItem = { label: string; href: string; subitems?: { label: string; href: string; external?: boolean }[]; external?: boolean };
 
 export const MENU_ITEMS = [
   { type: "dropdown" as const, label: "INSTITUCIONAL", items: [
-    { label: "Quem somos", href: "/pagina/quem-somos" },
+    { label: "Quem somos", href: "/quem-somos" },
     { label: "Diretoria", href: "/diretoria" },
     { 
       label: "Documentos", 
       href: "#",
       subitems: [
-        { label: "Convocações", href: "/documentos/convocacoes" },
-        { label: "Editais", href: "/documentos/editais" },
-        { label: "Estatuto", href: "/documentos/estatuto" },
+        { label: "Convocações", href: "/convocacoes" },
+        { label: "Editais", href: "/editais" },
+        { label: "Estatuto", href: "/estatuto" },
       ]
     },
-    { label: "Transparência", href: "/pagina/transparencia" },
+    { label: "Transparência", href: "/transparencia" },
   ]},
   { type: "mega" as const, label: "A ABPMC" },
-  { type: "link" as const, label: "ASSOCIE-SE", href: "/anuidades" },
-  { type: "link" as const, label: "ACREDITAÇÃO", href: "/acreditacao" },
+  { type: "link" as const, label: "ASSOCIE-SE", href: "/associe-se" },
+  { type: "link" as const, label: "ACREDITAÇÃO", href: "/comissoes-acreditacao" },
   { type: "dropdown" as const, label: "COMISSÕES", items: [
-    { label: "ABPMC História", href: "/pagina/abpmc-historia" },
-    { label: "ABPMC Comunidade", href: "/abpmc-comunidade" },
-    { label: "Acreditação", href: "/comissoes/acreditacao" },
-    { label: "Assuntos Profissionais, Legais e Éticos", href: "/pagina/assuntos-profissionais" },
-    { label: "Comunicação", href: "/pagina/comunicacao" },
-    { label: "Desenvolvimento Atípico", href: "/pagina/desenvolvimento-atipico" },
+    { label: "ABPMC História", href: "/comissao-abpmc-historia" },
+    { label: "ABPMC Comunidade", href: "/comissao-abpmc-comunidade" },
+    { label: "Acreditação", href: "/comissoes-acreditacao" },
+    { label: "Assuntos Profissionais, Legais e Éticos", href: "/comissao-de-assuntos-profissionais-legais-e-eticos" },
+    { label: "Comunicação", href: "/comissao-de-comunicacao" },
+    { label: "Desenvolvimento Atípico", href: "/comissao-de-desenvolvimento-atipico" },
     { 
       label: "Editora", 
-      href: "/editora",
+      href: "#",
       subitems: [
         { label: "Sobre", href: "/editora" },
-        { label: "Anais do Encontro Brasileiro", href: "/editora/anais" },
-        { label: "Boletim Contexto", href: "/editora/boletim-contexto" },
-        { label: "Livros e cartilhas", href: "/editora/livros-cartilhas" },
-        { label: "Revista Brasileira de Terapia Comportamental e Cognitiva", href: "/editora/revista-rbtcc" },
+        { label: "Anais do Encontro Brasileiro", href: "/anais-do-encontro-brasileiro" },
+        { label: "Boletim Contexto", href: "https://boletimcontexto.wordpress.com/", external: true },
+        { label: "Livros e cartilhas", href: "/livros-e-cartilhas" },
+        { label: "Revista Brasileira de Terapia Comportamental e Cognitiva", href: "http://www.usp.br/rbtcc/index.php/RBTCC", external: true },
       ]
     },
-    { label: "Estudantes", href: "/pagina/estudantes" },
-    { label: "Jornadas e Eventos Regionais", href: "/comissoes/jornadas-eventos-regionais" },
+    { label: "Estudantes", href: "/comissao-de-estudantes" },
+    { label: "Jornadas e Eventos Regionais", href: "/comissao-de-jornadas-e-eventos-regionais" },
   ]},
-  { type: "link" as const, label: "NOTÍCIAS", href: "/noticias" },
+  { type: "link" as const, label: "NOTÍCIAS", href: "/categorias/noticias" },
   { type: "link" as const, label: "CONTATO", href: "/contato" },
 ];
 
@@ -53,35 +53,35 @@ export const RIGHT_ICONS = [
 export const ABPMC_MEGA: MegaGrid = {
   top: [
     { title: "Associação", links: [
-      { label: "Associe-se", href: "/anuidades" },
+      { label: "Associe-se", href: "/associe-se" },
       { label: "Sócios", href: "/socios" },
     ]},
     { title: "Afiliação", links: [
-      { label: "Afilie-se", href: "/pagina/afiliacao" },
-      { label: "Afiliados", href: "/pagina/afiliados" },
+      { label: "Afilie-se", href: "/afilie-se" },
+      { label: "Afiliados", href: "/afiliados" },
     ]},
     { title: "Documentos", links: [
-      { label: "Abpmc Covid-19", href: "/pagina/covid19" },
+      { label: "ABPMC-COVID19", href: "https://juntosabpmc.wordpress.com/", external: true },
       { label: "Comportamento em Foco", href: "/comportamento-em-foco" },
-      { label: "Documentos da ABPMC", href: "/documentos" },
+      { label: "Documentos da ABPMC", href: "/documentos-da-abpmc" },
     ]},
     { title: "Eventos", links: [
-      { label: "Encontros Anuais", href: "/encontros/historico" },
-      { label: "Outros Eventos", href: "/eventos" },
+      { label: "Encontros Anuais", href: "/categorias/encontros-anuais" },
+      { label: "Outros Eventos", href: "/categorias/eventos" },
     ]},
   ],
   bottom: [
     { title: "História", links: [
-      { label: "Artigos históricos", href: "/pagina/artigos-historicos" },
-      { label: "Documentos históricos", href: "/pagina/documentos-historicos" },
-      { label: "Histórias e personagens", href: "/pagina/historias-personagens" },
+      { label: "Artigos históricos", href: "/categorias/artigos-historicos" },
+      { label: "Documentos históricos", href: "/documentos-historicos" },
+      { label: "Histórias e personagens", href: "/categorias/historias-e-personagens" },
     ]},
     { title: "Projetos", links: [
-      { label: "Comunidade", href: "/abpmc-comunidade" },
-      { label: "Sustentabilidade", href: "/comissoes/sustentabilidade" },
+      { label: "Comunidade", href: "/projetos-comunidade" },
+      { label: "Sustentabilidade", href: "/sustentabilidade" },
     ]},
     { title: "Imprensa", links: [
-      { label: "Release", href: "/pagina/release" },
+      { label: "Releases", href: "/releases" },
     ]},
   ],
 };

@@ -54,12 +54,23 @@ function MegaPanel() {
                 <ul className="space-y-2">
                   {col.links.map(l => (
                     <li key={l.label}>
-                      <Link 
-                        href={l.href} 
-                        className="text-[#0099CC] hover:text-[#01C2CE] text-sm transition-colors block"
-                      >
-                        {l.label}
-                      </Link>
+                      {l.external ? (
+                        <a 
+                          href={l.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#0099CC] hover:text-[#01C2CE] text-sm transition-colors block"
+                        >
+                          {l.label}
+                        </a>
+                      ) : (
+                        <Link 
+                          href={l.href} 
+                          className="text-[#0099CC] hover:text-[#01C2CE] text-sm transition-colors block"
+                        >
+                          {l.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -80,12 +91,23 @@ function MegaPanel() {
                 <ul className="space-y-2">
                   {col.links.map(l => (
                     <li key={l.label}>
-                      <Link 
-                        href={l.href} 
-                        className="text-[#0099CC] hover:text-[#01C2CE] text-sm transition-colors block"
-                      >
-                        {l.label}
-                      </Link>
+                      {l.external ? (
+                        <a 
+                          href={l.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#0099CC] hover:text-[#01C2CE] text-sm transition-colors block"
+                        >
+                          {l.label}
+                        </a>
+                      ) : (
+                        <Link 
+                          href={l.href} 
+                          className="text-[#0099CC] hover:text-[#01C2CE] text-sm transition-colors block"
+                        >
+                          {l.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -201,12 +223,23 @@ export default function Header() {
                             <ul className="ml-4 mt-2 space-y-1 border-l-2 border-[#01C2CE] pl-3">
                               {i.subitems.map(sub => (
                                 <li key={sub.label}>
-                                  <Link
-                                    href={sub.href}
-                                    className="text-gray-600 hover:text-[#01C2CE] text-sm block py-1.5 px-2 rounded transition-all"
-                                  >
-                                    {sub.label}
-                                  </Link>
+                                  {sub.external ? (
+                                    <a
+                                      href={sub.href}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-gray-600 hover:text-[#01C2CE] text-sm block py-1.5 px-2 rounded transition-all"
+                                    >
+                                      {sub.label}
+                                    </a>
+                                  ) : (
+                                    <Link
+                                      href={sub.href}
+                                      className="text-gray-600 hover:text-[#01C2CE] text-sm block py-1.5 px-2 rounded transition-all"
+                                    >
+                                      {sub.label}
+                                    </Link>
+                                  )}
                                 </li>
                               ))}
                             </ul>
@@ -339,13 +372,25 @@ export default function Header() {
                             {i.subitems && (
                               <div className="ml-4 mt-1 space-y-1 border-l-2 border-[#01C2CE] pl-3">
                                 {i.subitems.map(sub => (
-                                  <Link
-                                    key={sub.label}
-                                    href={sub.href}
-                                    className="block py-2 px-3 text-xs text-gray-600 hover:text-[#01C2CE] hover:bg-gray-50 rounded transition-colors"
-                                  >
-                                    {sub.label}
-                                  </Link>
+                                  sub.external ? (
+                                    <a
+                                      key={sub.label}
+                                      href={sub.href}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="block py-2 px-3 text-xs text-gray-600 hover:text-[#01C2CE] hover:bg-gray-50 rounded transition-colors"
+                                    >
+                                      {sub.label}
+                                    </a>
+                                  ) : (
+                                    <Link
+                                      key={sub.label}
+                                      href={sub.href}
+                                      className="block py-2 px-3 text-xs text-gray-600 hover:text-[#01C2CE] hover:bg-gray-50 rounded transition-colors"
+                                    >
+                                      {sub.label}
+                                    </Link>
+                                  )
                                 ))}
                               </div>
                             )}
