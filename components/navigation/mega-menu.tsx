@@ -67,8 +67,8 @@ function MegaPanel() {
             ))}
           </div>
 
-          {/* LINHA 2 - 3 COLUNAS COM DIVISÓRIAS */}
-          <div className="grid grid-cols-3 gap-0">
+          {/* LINHA 2 - 3 COLUNAS ALINHADAS À ESQUERDA */}
+          <div className="grid grid-cols-4 gap-0">
             {ABPMC_MEGA.bottom.map((col: Column, index: number) => (
               <div 
                 key={col.title} 
