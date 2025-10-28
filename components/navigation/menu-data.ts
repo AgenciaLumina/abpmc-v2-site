@@ -5,7 +5,7 @@ export type DropdownItem = { label: string; href: string; subitems?: { label: st
 
 export const MENU_ITEMS = [
   { type: "dropdown" as const, label: "INSTITUCIONAL", items: [
-    { label: "Quem somos", href: "/quem-somos" },
+    { label: "Quem somos", href: "/pagina/quem-somos" },
     { label: "Diretoria", href: "/diretoria" },
     { 
       label: "Documentos", 
@@ -42,7 +42,7 @@ export const MENU_ITEMS = [
     { label: "Estudantes", href: "/comissao-de-estudantes" },
     { label: "Jornadas e Eventos Regionais", href: "/comissao-de-jornadas-e-eventos-regionais" },
   ]},
-  { type: "link" as const, label: "NOTÍCIAS", href: "/categorias/noticias" },
+  { type: "link" as const, label: "NOTÍCIAS", href: "/categoria/noticias" },
   { type: "link" as const, label: "CONTATO", href: "/contato" },
 ];
 
@@ -66,15 +66,15 @@ export const ABPMC_MEGA: MegaGrid = {
       { label: "Documentos da ABPMC", href: "/documentos-da-abpmc" },
     ]},
     { title: "Eventos", links: [
-      { label: "Encontros Anuais", href: "/categorias/encontros-anuais" },
-      { label: "Outros Eventos", href: "/categorias/eventos" },
+      { label: "Encontros Anuais", href: "/categoria/encontros-anuais" },
+      { label: "Outros Eventos", href: "/categoria/eventos" },
     ]},
   ],
   bottom: [
     { title: "História", links: [
-      { label: "Artigos históricos", href: "/categorias/artigos-historicos" },
+      { label: "Artigos históricos", href: "/categoria/artigos-historicos" },
       { label: "Documentos históricos", href: "/documentos-historicos" },
-      { label: "Histórias e personagens", href: "/categorias/historias-e-personagens" },
+      { label: "Histórias e personagens", href: "/categoria/historias-e-personagens" },
     ]},
     { title: "Projetos", links: [
       { label: "Comunidade", href: "/projetos-comunidade" },
