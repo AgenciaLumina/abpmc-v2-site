@@ -268,4 +268,39 @@ Estas têm arquivos `page.tsx` próprios em `app/(site)/`:
 
 **Status Final:** 🟢 **APROVADO PARA DEPLOY EM PRODUÇÃO**
 
-**Próximo passo:** Execute `./deploy.sh` para fazer deploy automático! 🚀
+**Próximo passo:** Configure as variáveis de ambiente e execute `./deploy.sh`! 🚀
+
+---
+
+## 🗄️ CONFIGURAÇÃO DE DATABASE ATUALIZADA
+
+### **Schema Prisma Otimizado:**
+
+```prisma
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")   // pooler para runtime
+  directUrl = env("DIRECT_URL")     // conexão direta para migrations
+}
+```
+
+### **Variáveis Necessárias:**
+
+**Neon (Recomendado):**
+```bash
+DATABASE_URL="postgresql://user:pass@ep-xxx.pooler.neon.tech/neondb?sslmode=require"
+DIRECT_URL="postgresql://user:pass@ep-xxx.neon.tech/neondb?sslmode=require"
+```
+
+**Vercel Postgres:**
+```bash
+DATABASE_URL="postgres://default:xxx@xxx-pooler.postgres.vercel-storage.com/verceldb"
+DIRECT_URL="postgres://default:xxx@xxx.postgres.vercel-storage.com/verceldb"
+```
+
+**Benefícios:**
+- ✅ `DATABASE_URL` usa pooling para melhor performance
+- ✅ `DIRECT_URL` para migrations sem erros
+- ✅ Evita erro "prepared statement already exists"
+
+**Documentação completa:** Ver `DATABASE_CONFIG.md`
