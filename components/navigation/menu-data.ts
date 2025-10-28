@@ -47,7 +47,7 @@ export const MENU_ITEMS = [
 ];
 
 export const RIGHT_ICONS = [
-  { label: "Login", href: "/login", icon: "login" }
+  { label: "Login", href: "/auth/associado", icon: "login" }
 ];
 
 export const ABPMC_MEGA: MegaGrid = {

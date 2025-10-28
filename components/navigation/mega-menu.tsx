@@ -290,7 +290,7 @@ export default function Header() {
         <div className="hidden md:flex items-center gap-3">
           {/* Login */}
           <Link
-            href="/login"
+            href="/auth/associado"
             aria-label="Login"
             className={`w-10 h-10 inline-flex items-center justify-center rounded-full transition-colors ${
               scrolled ? "text-[#222] hover:bg-neutral-100" : "text-white hover:bg-white/10"
@@ -454,7 +454,7 @@ export default function Header() {
               
               {/* Login Mobile */}
               <Link
-                href="/login"
+                href="/auth/associado"
                 className="block py-3.5 px-4 text-base font-semibold text-[#0B2E47] hover:bg-gray-50 rounded-lg transition-colors mt-2"
               >
                 <span className="flex items-center gap-2">
