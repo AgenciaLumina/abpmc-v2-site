@@ -7,7 +7,15 @@ export const MENU_ITEMS = [
   { type: "dropdown" as const, label: "INSTITUCIONAL", items: [
     { label: "Quem somos", href: "/pagina/quem-somos" },
     { label: "Diretoria", href: "/diretoria" },
-    { label: "Documentos", href: "/documentos" },
+    { 
+      label: "Documentos", 
+      href: "/documentos",
+      subitems: [
+        { label: "Convocações", href: "/documentos/convocacoes" },
+        { label: "Editais", href: "/documentos/editais" },
+        { label: "Estatuto", href: "/documentos/estatuto" },
+      ]
+    },
     { label: "Transparência", href: "/pagina/transparencia" },
   ]},
   { type: "mega" as const, label: "A ABPMC" },
