@@ -5,6 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import PostsPagination from "@/components/pagination/PostsPagination";
 
+export const dynamic = 'force-dynamic';
+
 interface CategoriaPageProps {
   params: {
     slug: string;
