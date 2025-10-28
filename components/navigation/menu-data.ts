@@ -1,6 +1,7 @@
 export type ColLink = { label: string; href: string };
 export type Column = { title: string; links: ColLink[] };
 export type MegaGrid = { top: Column[]; bottom: Column[] };
+export type DropdownItem = { label: string; href: string; subitems?: { label: string; href: string }[] };
 
 export const MENU_ITEMS = [
   { type: "dropdown" as const, label: "INSTITUCIONAL", items: [
@@ -12,13 +13,6 @@ export const MENU_ITEMS = [
   { type: "mega" as const, label: "A ABPMC" },
   { type: "link" as const, label: "ASSOCIE-SE", href: "/anuidades" },
   { type: "link" as const, label: "ACREDITAÇÃO", href: "/acreditacao" },
-  { type: "dropdown" as const, label: "EDITORA", items: [
-    { label: "Sobre", href: "/editora" },
-    { label: "Anais do Encontro Brasileiro", href: "/editora/anais" },
-    { label: "Boletim Contexto", href: "/editora/boletim-contexto" },
-    { label: "Livros e cartilhas", href: "/editora/livros-cartilhas" },
-    { label: "Revista Brasileira de Terapia Comportamental e Cognitiva", href: "/editora/revista-rbtcc" },
-  ]},
   { type: "dropdown" as const, label: "COMISSÕES", items: [
     { label: "ABPMC História", href: "/pagina/abpmc-historia" },
     { label: "ABPMC Comunidade", href: "/abpmc-comunidade" },
@@ -26,7 +20,17 @@ export const MENU_ITEMS = [
     { label: "Assuntos Profissionais, Legais e Éticos", href: "/pagina/assuntos-profissionais" },
     { label: "Comunicação", href: "/pagina/comunicacao" },
     { label: "Desenvolvimento Atípico", href: "/pagina/desenvolvimento-atipico" },
-    { label: "Editora", href: "/editora" },
+    { 
+      label: "Editora", 
+      href: "/editora",
+      subitems: [
+        { label: "Sobre", href: "/editora" },
+        { label: "Anais do Encontro Brasileiro", href: "/editora/anais" },
+        { label: "Boletim Contexto", href: "/editora/boletim-contexto" },
+        { label: "Livros e cartilhas", href: "/editora/livros-cartilhas" },
+        { label: "Revista Brasileira de Terapia Comportamental e Cognitiva", href: "/editora/revista-rbtcc" },
+      ]
+    },
     { label: "Estudantes", href: "/pagina/estudantes" },
     { label: "Jornadas e Eventos Regionais", href: "/comissoes/jornadas-eventos-regionais" },
   ]},

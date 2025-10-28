@@ -197,6 +197,20 @@ export default function Header() {
                           >
                             {i.label}
                           </Link>
+                          {i.subitems && (
+                            <ul className="ml-4 mt-2 space-y-1 border-l-2 border-[#01C2CE] pl-3">
+                              {i.subitems.map(sub => (
+                                <li key={sub.label}>
+                                  <Link
+                                    href={sub.href}
+                                    className="text-gray-600 hover:text-[#01C2CE] text-sm block py-1.5 px-2 rounded transition-all"
+                                  >
+                                    {sub.label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
                         </li>
                       ))}
                     </ul>
@@ -315,13 +329,27 @@ export default function Header() {
                     <MobileAccordion key={item.label} title={item.label}>
                       <div className="space-y-1 pt-2">
                         {item.items.map(i => (
-                          <Link
-                            key={i.label}
-                            href={i.href}
-                            className="block py-2.5 px-4 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
-                          >
-                            {i.label}
-                          </Link>
+                          <div key={i.label}>
+                            <Link
+                              href={i.href}
+                              className="block py-2.5 px-4 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
+                            >
+                              {i.label}
+                            </Link>
+                            {i.subitems && (
+                              <div className="ml-4 mt-1 space-y-1 border-l-2 border-[#01C2CE] pl-3">
+                                {i.subitems.map(sub => (
+                                  <Link
+                                    key={sub.label}
+                                    href={sub.href}
+                                    className="block py-2 px-3 text-xs text-gray-600 hover:text-[#01C2CE] hover:bg-gray-50 rounded transition-colors"
+                                  >
+                                    {sub.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
+                          </div>
                         ))}
                       </div>
                     </MobileAccordion>
