@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { MENU_ITEMS, RIGHT_ICONS, ABPMC_MEGA, type Column } from "./menu-data";
+import MobileMenuElegante from "./MobileMenuElegante";
 
 function MobileAccordion({ title, children }: { title: string; children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -335,139 +336,12 @@ export default function Header() {
         </button>
       </div>
 
-      {/* MOBILE MENU DRAWER */}
-      {mobileMenuOpen && (
-        <>
-          {/* Backdrop */}
-          <div 
-            className="fixed inset-0 bg-black/60 z-[80] md:hidden animate-fadeIn"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-          
-          {/* Drawer */}
-          <div className="fixed top-[70px] left-0 right-0 bottom-0 bg-white z-[85] md:hidden overflow-y-auto animate-slideDown">
-            <nav className="p-4 space-y-1">
-              {MENU_ITEMS.map(item => {
-                if (item.type === "link") {
-                  return (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className="block py-3.5 px-4 text-base font-semibold text-[#0B2E47] hover:bg-gray-50 rounded-lg transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                  );
-                }
-                
-                if (item.type === "dropdown") {
-                  return (
-                    <MobileAccordion key={item.label} title={item.label}>
-                      <div className="space-y-1 pt-2">
-                        {item.items.map(i => (
-                          <div key={i.label}>
-                            <Link
-                              href={i.href}
-                              className="block py-2.5 px-4 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
-                            >
-                              {i.label}
-                            </Link>
-                            {i.subitems && (
-                              <div className="ml-4 mt-1 space-y-1 border-l-2 border-[#01C2CE] pl-3">
-                                {i.subitems.map(sub => (
-                                  sub.external ? (
-                                    <a
-                                      key={sub.label}
-                                      href={sub.href}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="block py-2 px-3 text-xs text-gray-600 hover:text-[#01C2CE] hover:bg-gray-50 rounded transition-colors"
-                                    >
-                                      {sub.label}
-                                    </a>
-                                  ) : (
-                                    <Link
-                                      key={sub.label}
-                                      href={sub.href}
-                                      className="block py-2 px-3 text-xs text-gray-600 hover:text-[#01C2CE] hover:bg-gray-50 rounded transition-colors"
-                                    >
-                                      {sub.label}
-                                    </Link>
-                                  )
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </MobileAccordion>
-                  );
-                }
-                
-                if (item.type === "mega") {
-                  return (
-                    <MobileAccordion key={item.label} title={item.label}>
-                      <div className="space-y-4 pt-2">
-                        {ABPMC_MEGA.top.map(col => (
-                          <div key={col.title} className="bg-gray-50 rounded-lg p-3">
-                            <h4 className="font-bold text-sm text-[#0B2E47] mb-2 border-b border-[#01C2CE] pb-1">
-                              {col.title}
-                            </h4>
-                            <div className="space-y-1">
-                              {col.links.map(l => (
-                                <Link
-                                  key={l.label}
-                                  href={l.href}
-                                  className="block py-1.5 text-sm text-gray-700 hover:text-[#01C2CE] transition-colors"
-                                >
-                                  {l.label}
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                        {ABPMC_MEGA.bottom.map(col => (
-                          <div key={col.title} className="bg-gray-50 rounded-lg p-3">
-                            <h4 className="font-bold text-sm text-[#0B2E47] mb-2 border-b border-[#01C2CE] pb-1">
-                              {col.title}
-                            </h4>
-                            <div className="space-y-1">
-                              {col.links.map(l => (
-                                <Link
-                                  key={l.label}
-                                  href={l.href}
-                                  className="block py-1.5 text-sm text-gray-700 hover:text-[#01C2CE] transition-colors"
-                                >
-                                  {l.label}
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </MobileAccordion>
-                  );
-                }
-                
-                return null;
-              })}
-              
-              {/* Login Mobile */}
-              <Link
-                href="/auth/associado"
-                className="block py-3.5 px-4 text-base font-semibold text-[#0B2E47] hover:bg-gray-50 rounded-lg transition-colors mt-2"
-              >
-                <span className="flex items-center gap-2">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                  </svg>
-                  Login
-                </span>
-              </Link>
-            </nav>
-          </div>
-        </>
-      )}
+      {/* MOBILE MENU ELEGANTE */}
+      <MobileMenuElegante 
+        isOpen={mobileMenuOpen} 
+        onClose={() => setMobileMenuOpen(false)}
+        scrolled={scrolled}
+      />
     </header>
   );
 }
